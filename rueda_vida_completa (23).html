@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rueda de la Vida</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a2847 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #f1f5f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa, #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .form-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(148, 163, 184, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+
+        .slider-group {
+            margin-bottom: 35px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .slider-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #f1f5f9;
+        }
+
+        .slider-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #f87171, #ff8c42, #38bdf8, #a78bfa, #10b981);
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-webkit-slider-thumb:active {
+            transform: scale(1.15);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-moz-range-thumb:active {
+            transform: scale(1.15);
+        }
+
+        .slider-range {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .chart-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .chart-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .message {
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(248, 113, 113, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(248, 113, 113, 0.4);
+        }
+
+        .analysis-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1a2847 50%, #0f172a 100%);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .analysis-screen.show {
+            display: flex;
+        }
+
+        .analysis-content {
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .analysis-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .analysis-subtitle {
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #38bdf8, #a78bfa, #ff8c42);
+            width: 0%;
+            animation: progress 5s ease-in-out forwards;
+        }
+
+        .progress-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        @keyframes progress {
+            0% { width: 5%; }
+            30% { width: 25%; }
+            60% { width: 60%; }
+            100% { width: 85%; }
+        }
+
+        .results-screen {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .results-screen.show {
+            display: block;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .results-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa, #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-subtitle {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .radar-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .radar-title {
+            text-align: center;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .area-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: cardSlideIn 0.6s ease-out backwards;
+        }
+
+        .area-card:nth-child(1) { animation-delay: 0.1s; }
+        .area-card:nth-child(2) { animation-delay: 0.2s; }
+        .area-card:nth-child(3) { animation-delay: 0.3s; }
+        .area-card:nth-child(4) { animation-delay: 0.4s; }
+        .area-card:nth-child(5) { animation-delay: 0.5s; }
+        .area-card:nth-child(6) { animation-delay: 0.6s; }
+        .area-card:nth-child(7) { animation-delay: 0.7s; }
+        .area-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .area-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .area-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .area-score {
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .area-section {
+            margin-bottom: 20px;
+        }
+
+        .area-section-label {
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            color: #38bdf8;
+        }
+
+        .area-section-content {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #ff8c42, #ff6b6b);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 20px 15px 20px 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .chart-section {
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .results-title {
+                font-size: 1.8rem;
+            }
+
+            .form-section,
+            .chart-section {
+                padding: 24px;
+            }
+
+            .submit-btn {
+                padding: 14px;
+                font-size: 0.9rem;
+            }
+
+            .area-card {
+                padding: 20px;
+            }
+
+            .cta-button {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Rueda de la Vida</h1>
+            <p>Evaluá tu bienestar en 8 áreas clave y visualiza tu radar de vida</p>
+        </div>
+
+        <div id="mainForm" class="main-content">
+            <div class="form-section">
+                <form id="wheelForm">
+                    <div class="form-group">
+                        <label for="nombre">Tu Nombre</label>
+                        <input type="text" id="nombre" placeholder="Ingresa tu nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instagram">Usuario de Instagram</label>
+                        <input type="text" id="instagram" placeholder="@tuinstagram" required>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">💪 Salud y Energía</span>
+                            <span class="slider-value" data-area="salud_energia">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="salud_energia" data-area="salud_energia">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">💰 Dinero y Finanzas</span>
+                            <span class="slider-value" data-area="dinero_finanzas">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="dinero_finanzas" data-area="dinero_finanzas">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">🎯 Propósito</span>
+                            <span class="slider-value" data-area="proposito">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="proposito" data-area="proposito">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">❤️ Relaciones</span>
+                            <span class="slider-value" data-area="relaciones">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="relaciones" data-area="relaciones">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">⚡ Productividad</span>
+                            <span class="slider-value" data-area="productividad">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="productividad" data-area="productividad">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">🪞 Autoestima</span>
+                            <span class="slider-value" data-area="autoestima">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="autoestima" data-area="autoestima">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">🧘 Paz Mental</span>
+                            <span class="slider-value" data-area="paz_mental">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="paz_mental" data-area="paz_mental">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-name">📚 Crecimiento Personal</span>
+                            <span class="slider-value" data-area="crecimiento">5</span>
+                        </div>
+                        <input type="range" class="slider" min="1" max="10" value="5" id="crecimiento" data-area="crecimiento">
+                        <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Enviar Mi Evaluación</button>
+                    <div class="message" id="message"></div>
+                </form>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="analysisScreen" class="analysis-screen">
+        <div class="analysis-content">
+            <div class="analysis-title" id="analysisTitle">Analizando tus respuestas...</div>
+            <div class="analysis-subtitle" id="analysisSubtitle">Estamos generando una lectura personalizada para ti</div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Por favor espera</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="resultsScreen" class="container results-screen">
+        <div class="results-header">
+            <h2 class="results-title">Este es tu análisis personalizado</h2>
+            <p class="results-subtitle" id="resultsSummary"></p>
+        </div>
+
+        <div class="radar-section">
+            <div class="radar-title">Tu rueda actual</div>
+            <canvas id="resultsRadarChart"></canvas>
+        </div>
+
+        <div class="areas-grid" id="areasContainer"></div>
+
+        <div class="cta-section">
+            <button class="cta-button" onclick="contactCarlos()">Quiero profundizar en mi resultado con Carlos</button>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://oddyqhzzvsrmrvxfrhbo.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kZHlxaHp6dnNybXJ2eGZyaGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NjcyNjMsImV4cCI6MjA5MTQ0MzI2M30.EJFt72jDmnflmmRLZ9QM5lzVRxbUM2yNudl8k1OwpK8";
+        const EDGE_FUNCTION_URL = "https://oddyqhzzvsrmrvxfrhbo.supabase.co/functions/v1/analisis-ia";
+
+        const labels = ['Salud y Energía', 'Dinero y Finanzas', 'Propósito', 'Relaciones', 'Productividad', 'Autoestima', 'Paz', 'Crecimiento'];
+        const areas = ['salud_energia', 'dinero_finanzas', 'proposito', 'relaciones', 'productividad', 'autoestima', 'paz_mental', 'crecimiento'];
+        const areaLabels = {
+            salud_energia: '💪 Salud y Energía',
+            dinero_finanzas: '💰 Dinero y Finanzas',
+            proposito: '🎯 Propósito',
+            relaciones: '❤️ Relaciones',
+            productividad: '⚡ Productividad',
+            autoestima: '🪞 Autoestima',
+            paz_mental: '🧘 Paz Mental',
+            crecimiento: '📚 Crecimiento Personal'
+        };
+
+        const form = document.getElementById('wheelForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDiv = document.getElementById('message');
+        const sliders = document.querySelectorAll('.slider');
+        const mainForm = document.getElementById('mainForm');
+        const analysisScreen = document.getElementById('analysisScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+
+        let chartInstance = null;
+        let resultsChartInstance = null;
+        let currentDatos = null;
+
+        function initChart() {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tu Rueda de Vida',
+                        data: areas.map(area => parseInt(document.getElementById(area).value)),
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                        pointBackgroundColor: '#a78bfa',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#ff8c42',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: true, labels: { color: '#cbd5e1', font: { size: 13, weight: '600' } } }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 10,
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' },
+                            ticks: { color: '#94a3b8', font: { size: 12 }, stepSize: 2 },
+                            pointLabels: { color: '#cbd5e1', font: { size: 13, weight: '600' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initResultsChart(datos) {
+            const ctx = document.getElementById('resultsRadarChart').getContext('2d');
+            resultsChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tu Rueda de Vida',
+                        data: [datos.salud_energia, datos.dinero_finanzas, datos.proposito, datos.relaciones, datos.productividad, datos.autoestima, datos.paz_mental, datos.crecimiento],
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                        pointBackgroundColor: '#a78bfa',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#ff8c42',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: true, labels: { color: '#cbd5e1', font: { size: 13, weight: '600' } } }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 10,
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' },
+                            ticks: { color: '#94a3b8', font: { size: 12 }, stepSize: 2 },
+                            pointLabels: { color: '#cbd5e1', font: { size: 13, weight: '600' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart() {
+            if (chartInstance) {
+                chartInstance.data.datasets[0].data = areas.map(area => parseInt(document.getElementById(area).value));
+                chartInstance.update('none');
+            }
+        }
+
+        sliders.forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const area = e.target.dataset.area;
+                const value = e.target.value;
+                document.querySelector(`.slider-value[data-area="${area}"]`).textContent = value;
+                updateChart();
+            });
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const instagram = document.getElementById('instagram').value.trim();
+
+            if (!nombre || !instagram) {
+                showMessage('Por favor completa todos los campos', 'error');
+                return;
+            }
+
+            const datos = {
+                nombre,
+                instagram,
+                salud_energia: parseInt(document.getElementById('salud_energia').value),
+                dinero_finanzas: parseInt(document.getElementById('dinero_finanzas').value),
+                proposito: parseInt(document.getElementById('proposito').value),
+                relaciones: parseInt(document.getElementById('relaciones').value),
+                productividad: parseInt(document.getElementById('productividad').value),
+                autoestima: parseInt(document.getElementById('autoestima').value),
+                paz_mental: parseInt(document.getElementById('paz_mental').value),
+                crecimiento: parseInt(document.getElementById('crecimiento').value)
+            };
+
+            currentDatos = datos;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/respuestas_rueda_vida`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(datos)
+                });
+
+                if (response.ok || response.status === 201 || response.status === 204) {
+                    mainForm.classList.add('hidden');
+                    analysisScreen.classList.add('show');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    setTimeout(() => {
+                        callEdgeFunction(datos);
+                    }, 1000);
+                } else {
+                    showMessage('✗ Error al guardar. Intentá nuevamente', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar Mi Evaluación';
+                }
+            } catch (error) {
+                mainForm.classList.add('hidden');
+                analysisScreen.classList.add('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Personalizar pantalla de análisis
+                const frases = [
+                    "El crecimiento ocurre cuando te atreves a salir de tu zona de confort",
+                    "Tu potencial es infinito, solo necesitas creer en ti",
+                    "El cambio comienza con una decisión, hoy es tu día",
+                    "La vida es un viaje, no un destino. Disfruta cada paso",
+                    "Tu éxito no es casualidad, es el resultado de tus acciones",
+                    "El mejor momento para empezar fue ayer, el segundo mejor es hoy",
+                    "Tu Rueda de Vida te muestra dónde estás, tú decides dónde ir",
+                    "La sabiduría no es perfección, es aceptar que siempre hay espacio para crecer"
+                ];
+                const frase = frases[Math.floor(Math.random() * frases.length)];
+                
+                document.getElementById('analysisTitle').textContent = `Analizando tus respuestas, ${datos.nombre}...`;
+                document.getElementById('analysisSubtitle').textContent = `"${frase}"`;
+                document.getElementById('progressFill').style.animation = 'progress 8s ease-in-out forwards';
+                
+                setTimeout(() => {
+                    callEdgeFunction(datos);
+                }, 8000);
+            }
+        });
+
+        async function callEdgeFunction(datos) {
+            try {
+                const response = await fetch(EDGE_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify(datos)
+                });
+
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
+
+                analysisScreen.classList.remove('show');
+                resultsScreen.classList.add('show');
+
+                if (response.ok && data.resultado) {
+                    console.log('Análisis recibido, mostrando resultados');
+                    displayResults(data.resultado, datos);
+                } else {
+                    console.log('No hay análisis válido, mostrando sin análisis');
+                    displayResultsWithoutAnalysis(datos);
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error en Edge Function:', error);
+                analysisScreen.classList.remove('show');
+                resultsScreen.classList.add('show');
+                displayResultsWithoutAnalysis(datos);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function displayResults(texto, datos) {
+            initResultsChart(datos);
+
+            const lowestAreas = areas
+                .map((area, idx) => ({ area, label: areaLabels[area], score: datos[area] }))
+                .sort((a, b) => a.score - b.score)
+                .slice(0, 2);
+
+            const summary = `Hola ${datos.nombre}, tu radar revela dos áreas que requieren atención especial: ${lowestAreas[0].label.replace(/^[📚💪💰🎯❤️⚡🪞🧘]\s/, '')} (${lowestAreas[0].score}/10) y ${lowestAreas[1].label.replace(/^[📚💪💰🎯❤️⚡🪞🧘]\s/, '')} (${lowestAreas[1].score}/10). El camino hacia una vida más equilibrada empieza por atender estas áreas con consciencia y acción.`;
+            document.getElementById('resultsSummary').textContent = summary;
+
+            // Parsear análisis por áreas
+            const areasAnalisis = parseAreaAnalysis(texto, datos);
+            
+            let html = '';
+            
+            areasAnalisis.forEach((area, idx) => {
+                const colors = ['#38bdf8', '#a78bfa', '#ff8c42', '#f87171', '#10b981', '#06b6d4', '#ec4899', '#f59e0b'];
+                const color = colors[idx % colors.length];
+                
+                html += `
+                    <div class="area-card" style="border-left: 5px solid ${color}; animation: cardSlideIn 0.6s ease-out backwards; animation-delay: ${idx * 0.1}s;">
+                        <div class="area-header">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="font-size: 2rem;">${area.emoji}</div>
+                                <div>
+                                    <div class="area-title">${area.nombre}</div>
+                                    <div class="area-score" style="font-size: 0.9rem; color: ${color};">${area.puntaje}/10</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="area-section" style="margin-top: 20px;">
+                            <div class="area-section-label" style="color: ${color};">📋 Diagnóstico</div>
+                            <div class="area-section-content">${area.diagnostico}</div>
+                        </div>
+                        
+                        <div class="area-section">
+                            <div class="area-section-label" style="color: ${color};">💡 Insight Clave</div>
+                            <div class="area-section-content">${area.insight}</div>
+                        </div>
+                        
+                        <div class="area-section">
+                            <div class="area-section-label" style="color: ${color};">🎯 Ejercicio Práctico</div>
+                            <div class="area-section-content">${area.ejercicio}</div>
+                        </div>
+                        
+                        <div class="area-section">
+                            <div class="area-section-label" style="color: ${color};">📚 Libro Recomendado</div>
+                            <div class="area-section-content" style="font-style: italic; color: #94a3b8;">${area.libro}</div>
+                        </div>
+                    </div>
+                `;
+
+                if ((idx + 1) === 4) {
+                    html += `<div style="text-align: center; margin: 40px 0;"><button class="cta-button" onclick="contactCarlos()">Quiero tener un acompañamiento directo con Carlos para trabajar estos resultados</button></div>`;
+                }
+            });
+
+            document.getElementById('areasContainer').innerHTML = html;
+        }
+
+        function parseAreaAnalysis(texto, datos) {
+            const emojis = {
+                'salud_energia': '💪',
+                'dinero_finanzas': '💰',
+                'proposito': '🎯',
+                'relaciones': '❤️',
+                'productividad': '⚡',
+                'autoestima': '🪞',
+                'paz_mental': '🧘',
+                'crecimiento': '📚'
+            };
+
+            const areasData = [];
+            const processedAreas = new Set();
+            
+            // Dividir por ## para cada área
+            const areaSections = texto.split('##').filter(s => s.trim());
+            
+            areaSections.forEach((section) => {
+                const lines = section.split('\n').filter(l => l.trim());
+                if (lines.length === 0) return;
+                
+                const firstLine = lines[0];
+                let areaKey = null;
+                let areaName = '';
+                
+                // Buscar qué área es por el nombre
+                for (const [key, label] of Object.entries(areaLabels)) {
+                    const labelClean = label.replace(/^[📚💪💰🎯❤️⚡🪞🧘]\s/, '').toUpperCase();
+                    if (firstLine.toUpperCase().includes(labelClean)) {
+                        areaKey = key;
+                        areaName = label;
+                        break;
+                    }
+                }
+                
+                // Evitar duplicados
+                if (!areaKey || processedAreas.has(areaKey)) {
+                    return;
+                }
+                
+                processedAreas.add(areaKey);
+
+                const diagnostico = extractPart(section, 'Diagnóstico') || extractPart(section, 'diagnóstico');
+                const insight = extractPart(section, 'Insight') || extractPart(section, 'insight');
+                const ejercicio = extractPart(section, 'Ejercicio') || extractPart(section, 'ejercicio');
+                const libro = extractPart(section, 'Libro') || extractPart(section, 'libro');
+
+                areasData.push({
+                    nombre: areaName,
+                    emoji: emojis[areaKey] || '✨',
+                    puntaje: datos[areaKey] || 5,
+                    diagnostico: diagnostico || 'Reflexiona sobre esta área',
+                    insight: insight || 'Un área importante para tu crecimiento',
+                    ejercicio: ejercicio || 'Dedica tiempo a mejorar esta área',
+                    libro: libro || 'Busca recursos sobre este tema'
+                });
+            });
+
+            // Si faltan áreas, agregar las faltantes con valores por defecto
+            for (const [key, label] of Object.entries(areaLabels)) {
+                if (!processedAreas.has(key)) {
+                    areasData.push({
+                        nombre: label,
+                        emoji: emojis[key] || '✨',
+                        puntaje: datos[key] || 5,
+                        diagnostico: 'Área en evaluación',
+                        insight: 'Hay potencial para crecer aquí',
+                        ejercicio: 'Comienza a trabajar en esta área',
+                        libro: 'Explora libros sobre este tema'
+                    });
+                }
+            }
+
+            return areasData;
+        }
+
+        function extractPart(text, label) {
+            const regex = new RegExp(`\\*\\*${label}:\\*\\*(.+?)(?=\\*\\*|---|\n\n|$)`, 'is');
+            const match = text.match(regex);
+            return match ? match[1].trim() : null;
+        }
+
+        function displayResultsWithoutAnalysis(datos) {
+            initResultsChart(datos);
+            
+            const summary = `Tu radar de vida está listo. Los números revelan dónde estás concentrando tu energía. Ahora es momento de explorar a fondo cada área y diseñar un plan para equilibrar tu vida.`;
+            document.getElementById('resultsSummary').textContent = summary;
+
+            let html = '<div style="text-align: center; padding: 40px; background: rgba(30, 41, 59, 0.8); border-radius: 16px; border: 1px solid rgba(148, 163, 184, 0.2); margin: 30px 0;"><p style="color: #cbd5e1; font-size: 1.05rem;">Para un análisis profundo y personalizado de cada área, te invito a conectar directamente conmigo.</p></div>';
+            document.getElementById('areasContainer').innerHTML = html;
+        }
+
+        function parseResults(texto, datos) {
+            console.log('Texto recibido:', texto.substring(0, 500));
+            const areasData = [];
+            
+            areas.forEach(area => {
+                const areaLabel = areaLabels[area];
+                const puntaje = datos[area];
+                
+                const diagnostico = extractSection(texto, area, 'revela') || 
+                                   extractSection(texto, areaLabel, 'revela') ||
+                                   extractSection(texto, area, 'diagnóstico') ||
+                                   extractSection(texto, areaLabel, 'diagnóstico');
+                
+                const insight = extractSection(texto, area, 'insight') || 
+                               extractSection(texto, areaLabel, 'insight') ||
+                               extractSection(texto, area, 'clave') ||
+                               extractSection(texto, areaLabel, 'clave');
+                
+                const ejercicio = extractSection(texto, area, 'ejercicio') || 
+                                 extractSection(texto, areaLabel, 'ejercicio') ||
+                                 extractSection(texto, area, 'práctico') ||
+                                 extractSection(texto, areaLabel, 'práctico');
+                
+                const libro = extractSection(texto, area, 'libro') || 
+                             extractSection(texto, areaLabel, 'libro') ||
+                             extractSection(texto, area, 'recomendado') ||
+                             extractSection(texto, areaLabel, 'recomendado');
+                
+                areasData.push({
+                    nombre: areaLabel,
+                    puntaje: puntaje,
+                    diagnostico: diagnostico,
+                    insight: insight,
+                    ejercicio: ejercicio,
+                    libro: libro
+                });
+
+                console.log(`${areaLabel}:`, { diagnostico, insight, ejercicio, libro });
+            });
+
+            return areasData;
+        }
+
+        function extractSection(texto, areaName, section) {
+            const patterns = [
+                new RegExp(`${areaName}[:\\s]*[^]*?${section}[:\\s]*([^]*?)(?:(?:💪|💰|🎯|❤️|⚡|🪞|🧘|📚|\\d+\\.|[A-Z][a-z]+:|$))`, 'i'),
+                new RegExp(`${section}[:\\s]*([^]*?)(?:(?:💪|💰|🎯|❤️|⚡|🪞|🧘|📚|\\d+\\.|[A-Z][a-z]+:|$))`, 'i')
+            ];
+
+            for (const pattern of patterns) {
+                const match = texto.match(pattern);
+                if (match && match[1]) {
+                    return match[1].trim().substring(0, 400).trim();
+                }
+            }
+
+            return null;
+        }
+
+        function showMessage(text, type) {
+            messageDiv.className = `message show ${type}`;
+            messageDiv.textContent = text;
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 4000);
+        }
+
+        function contactCarlos() {
+            window.location.href = 'https://cafedelexito.net/ever-optin-page';
+        }
+
+        initChart();
+    </script>
+</body>
+</html>

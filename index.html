@@ -560,72 +560,72 @@
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">💪 Salud y Energía</span>
-                            <span class="slider-value" data-area="salud_energia">5</span>
+                            <span class="slider-value" data-area="salud_energia">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="salud_energia" data-area="salud_energia">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="salud_energia" data-area="salud_energia">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">💰 Dinero y Finanzas</span>
-                            <span class="slider-value" data-area="dinero_finanzas">5</span>
+                            <span class="slider-value" data-area="dinero_finanzas">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="dinero_finanzas" data-area="dinero_finanzas">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="dinero_finanzas" data-area="dinero_finanzas">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">🎯 Propósito</span>
-                            <span class="slider-value" data-area="proposito">5</span>
+                            <span class="slider-value" data-area="proposito">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="proposito" data-area="proposito">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="proposito" data-area="proposito">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">❤️ Relaciones</span>
-                            <span class="slider-value" data-area="relaciones">5</span>
+                            <span class="slider-value" data-area="relaciones">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="relaciones" data-area="relaciones">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="relaciones" data-area="relaciones">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">⚡ Productividad</span>
-                            <span class="slider-value" data-area="productividad">5</span>
+                            <span class="slider-value" data-area="productividad">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="productividad" data-area="productividad">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="productividad" data-area="productividad">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">🪞 Autoestima</span>
-                            <span class="slider-value" data-area="autoestima">5</span>
+                            <span class="slider-value" data-area="autoestima">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="autoestima" data-area="autoestima">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="autoestima" data-area="autoestima">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">🧘 Paz Mental</span>
-                            <span class="slider-value" data-area="paz_mental">5</span>
+                            <span class="slider-value" data-area="paz_mental">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="paz_mental" data-area="paz_mental">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="paz_mental" data-area="paz_mental">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
                     <div class="slider-group">
                         <div class="slider-label">
                             <span class="slider-name">📚 Crecimiento Personal</span>
-                            <span class="slider-value" data-area="crecimiento">5</span>
+                            <span class="slider-value" data-area="crecimiento">1</span>
                         </div>
-                        <input type="range" class="slider" min="1" max="10" value="5" id="crecimiento" data-area="crecimiento">
+                        <input type="range" class="slider" min="1" max="10" value="1" id="crecimiento" data-area="crecimiento">
                         <div class="slider-range"><span>Muy bajo</span><span>Perfecto</span></div>
                     </div>
 
@@ -844,9 +844,30 @@
                     analysisScreen.classList.add('show');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     
+                    // Personalizar pantalla de análisis
+                    const frases = [
+                        "El crecimiento ocurre cuando te atreves a salir de tu zona de confort",
+                        "Tu potencial es infinito, solo necesitas creer en ti",
+                        "El cambio comienza con una decisión, hoy es tu día",
+                        "La vida es un viaje, no un destino. Disfruta cada paso",
+                        "Tu éxito no es casualidad, es el resultado de tus acciones",
+                        "El mejor momento para empezar fue ayer, el segundo mejor es hoy",
+                        "Tu Rueda de Vida te muestra dónde estás, tú decides dónde ir",
+                        "La sabiduría no es perfección, es aceptar que siempre hay espacio para crecer"
+                    ];
+                    const frase = frases[Math.floor(Math.random() * frases.length)];
+                    
+                    document.getElementById('analysisTitle').textContent = `Analizando tus respuestas, ${datos.nombre}...`;
+                    document.getElementById('analysisSubtitle').textContent = `"${frase}"`;
+                    document.getElementById('progressFill').style.animation = 'progress 8s ease-in-out forwards';
+                    
                     setTimeout(() => {
-                        callEdgeFunction(datos);
-                    }, 1000);
+                        analysisScreen.classList.remove('show');
+                        resultsScreen.classList.add('show');
+                        displayResults(datos);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Enviar Mi Evaluación';
+                    }, 8000);
                 } else {
                     showMessage('✗ Error al guardar. Intentá nuevamente', 'error');
                     submitBtn.disabled = false;
@@ -875,7 +896,11 @@
                 document.getElementById('progressFill').style.animation = 'progress 8s ease-in-out forwards';
                 
                 setTimeout(() => {
-                    callEdgeFunction(datos);
+                    analysisScreen.classList.remove('show');
+                    resultsScreen.classList.add('show');
+                    displayResults(datos);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar Mi Evaluación';
                 }, 8000);
             }
         });
@@ -917,8 +942,84 @@
             }
         }
 
-        function displayResults(texto, datos) {
+        function displayResults(datos) {
             initResultsChart(datos);
+
+            // JSON con análisis por área y nivel
+            const analisisDB = {
+  "salud_energia": {
+    "1": {"diagnostico": "Tu nivel de energía es extremadamente bajo. Probablemente te sientes constantemente cansado, sin motivación y con dificultad para sostener incluso actividades básicas del día a día. Esto no solo impacta tu productividad, sino también tu estado emocional y tu capacidad de tomar buenas decisiones.", "insight": "Tu cuerpo no está fallando, te está avisando.", "ejercicio": "Hoy acuéstate 1 hora antes de lo habitual, elimina pantallas 60 minutos antes de dormir y sal a caminar 20 minutos sin distracciones.", "libro": "Why We Sleep - Matthew Walker"},
+    "2": {"diagnostico": "Hay un desgaste acumulado en tu energía. Aunque logras cumplir con tus responsabilidades, lo haces desde el cansancio, lo que te hace menos eficiente y más propenso a irritarte o perder foco.", "insight": "El cansancio sostenido no se arregla con fuerza de voluntad.", "ejercicio": "Durante 3 días seguidos, elimina el azúcar refinada y reduce el consumo de café a máximo 2 tazas antes del mediodía.", "libro": "The Energy Bus - Jon Gordon"},
+    "3": {"diagnostico": "Tu energía es funcional pero inestable. Hay momentos del día donde te sientes bien, pero no logras sostener ese nivel, lo que afecta tu consistencia.", "insight": "No necesitas más energía, necesitas regularla.", "ejercicio": "Entrena al menos 2 veces esta semana (20-30 minutos), aunque no tengas ganas.", "libro": "Atomic Habits - James Clear"},
+    "4": {"diagnostico": "Te encuentras en un punto medio. No estás mal, pero tampoco estás optimizando tu energía. Estás en zona de confort fisiológica.", "insight": "Lo promedio no construye resultados extraordinarios.", "ejercicio": "Durante 5 días, elimina ultraprocesados y prioriza proteínas, agua y sueño consistente.", "libro": "Outlive - Peter Attia"},
+    "5": {"diagnostico": "Tienes buena energía en general, pero te falta consistencia. Hay días muy buenos y otros donde pierdes ritmo.", "insight": "Tu problema no es capacidad, es consistencia.", "ejercicio": "Define 3 días fijos de entrenamiento esta semana y cúmplelos sin negociar.", "libro": "Can't Hurt Me - David Goggins"},
+    "6": {"diagnostico": "Tu energía está en un nivel alto. Tienes control sobre tus hábitos, pero aún puedes optimizar detalles finos.", "insight": "El siguiente nivel es precisión.", "ejercicio": "Trackea durante 5 días tu sueño, alimentación y energía en una nota simple.", "libro": "The 4-Hour Body - Tim Ferriss"},
+    "7": {"diagnostico": "Estás en un estado óptimo de energía. Tu cuerpo responde, tienes claridad mental y buena capacidad física.", "insight": "Ahora tu rol es expandir, no solo mantener.", "ejercicio": "Introduce un reto físico nuevo esta semana (fuerza, resistencia o movilidad).", "libro": "Endure - Alex Hutchinson"}
+  },
+  "dinero_finanzas": {
+    "1": {"diagnostico": "Tu situación financiera es crítica o caótica. Probablemente no tienes claridad de ingresos, gastos o deudas, lo que genera estrés constante.", "insight": "No puedes mejorar lo que no ves.", "ejercicio": "Hoy registra absolutamente todos tus gastos del día.", "libro": "The Psychology of Money - Morgan Housel"},
+    "2": {"diagnostico": "Tus ingresos son bajos o inestables. Dependes del día a día sin una estructura financiera clara.", "insight": "El problema no es el dinero, es la estrategia.", "ejercicio": "Define 1 nueva forma concreta de generar ingresos esta semana.", "libro": "Rich Dad Poor Dad - Robert Kiyosaki"},
+    "3": {"diagnostico": "Cubres tus gastos pero no avanzas. No hay ahorro ni crecimiento.", "insight": "Estás sobreviviendo financieramente.", "ejercicio": "Ahorra mínimo el 10% de tu próximo ingreso.", "libro": "I Will Teach You to Be Rich - Ramit Sethi"},
+    "4": {"diagnostico": "Tienes estabilidad básica, pero sin crecimiento relevante.", "insight": "Estabilidad no es libertad.", "ejercicio": "Invierte una pequeña cantidad esta semana.", "libro": "The Simple Path to Wealth - JL Collins"},
+    "5": {"diagnostico": "Buen manejo financiero, pero limitado en escala.", "insight": "Tu techo es tu mentalidad.", "ejercicio": "Busca aumentar tus ingresos en un 20% este trimestre.", "libro": "Think and Grow Rich - Napoleon Hill"},
+    "6": {"diagnostico": "Ingresos sólidos y control financiero claro.", "insight": "Ahora el juego es multiplicar.", "ejercicio": "Diversifica al menos una fuente de ingresos.", "libro": "Money Master the Game - Tony Robbins"},
+    "7": {"diagnostico": "Tienes libertad financiera significativa.", "insight": "El dinero es una herramienta de impacto.", "ejercicio": "Define una inversión alineada a propósito.", "libro": "The Almanack of Naval Ravikant"}
+  },
+  "proposito": {
+    "1": {"diagnostico": "Te sientes perdido o desconectado de lo que haces. Probablemente no encuentras sentido a tu trabajo o actividades diarias, lo que genera frustración y vacío.", "insight": "Sin dirección, cualquier camino pesa.", "ejercicio": "Escribe durante 10 minutos qué te gustaría hacer si no tuvieras miedo ni presión externa.", "libro": "Man's Search for Meaning - Viktor Frankl"},
+    "2": {"diagnostico": "Hay cierta inquietud interna. Sabes que algo no encaja, pero no tienes claridad sobre qué cambiar.", "insight": "La incomodidad es una señal, no un error.", "ejercicio": "Haz una lista de lo que NO quieres seguir haciendo en tu vida.", "libro": "Start with Why - Simon Sinek"},
+    "3": {"diagnostico": "Tienes algunas ideas, pero no hay acción clara. Estás en exploración sin compromiso.", "insight": "Pensar no reemplaza avanzar.", "ejercicio": "Elige una idea y dedícale 1 hora esta semana.", "libro": "Designing Your Life - Bill Burnett"},
+    "4": {"diagnostico": "Tienes claridad parcial sobre lo que quieres, pero no lo estás ejecutando de forma consistente.", "insight": "La claridad sin acción se convierte en frustración.", "ejercicio": "Define un objetivo concreto para esta semana y cúmplelo.", "libro": "The Alchemist - Paulo Coelho"},
+    "5": {"diagnostico": "Estás alineado con lo que haces en muchos aspectos, pero aún hay dudas o ajustes.", "insight": "La alineación se construye, no se encuentra.", "ejercicio": "Dedica 3 horas esta semana a avanzar en algo que realmente te importa.", "libro": "Deep Work - Cal Newport"},
+    "6": {"diagnostico": "Tienes claridad y estás actuando en consecuencia.", "insight": "El propósito crece con la acción.", "ejercicio": "Aumenta el tiempo dedicado a tu propósito en un 20%.", "libro": "Essentialism - Greg McKeown"},
+    "7": {"diagnostico": "Estás profundamente alineado con tu propósito y lo vives activamente.", "insight": "Ahora tu reto es expandir impacto.", "ejercicio": "Ayuda a alguien más a encontrar su dirección esta semana.", "libro": "Let Your Life Speak - Parker Palmer"}
+  },
+  "relaciones": {
+    "1": {"diagnostico": "Tus relaciones están deterioradas o son inexistentes. Puede haber conflictos, distancia emocional o aislamiento.", "insight": "Lo que no se cuida, se rompe.", "ejercicio": "Escribe a una persona importante y retoma contacto hoy.", "libro": "How to Win Friends - Dale Carnegie"},
+    "2": {"diagnostico": "Hay conexiones, pero superficiales o tensas.", "insight": "No es cantidad, es calidad.", "ejercicio": "Ten una conversación honesta con alguien cercano.", "libro": "Attached - Amir Levine"},
+    "3": {"diagnostico": "Relaciones funcionales pero poco profundas.", "insight": "La conexión real requiere vulnerabilidad.", "ejercicio": "Comparte algo personal con alguien de confianza.", "libro": "Daring Greatly - Brené Brown"},
+    "4": {"diagnostico": "Relaciones estables pero mejorables.", "insight": "Las relaciones se entrenan.", "ejercicio": "Escucha sin interrumpir en tu próxima conversación importante.", "libro": "Nonviolent Communication - Marshall Rosenberg"},
+    "5": {"diagnostico": "Buenas relaciones, con espacios de mejora.", "insight": "El vínculo se fortalece con intención.", "ejercicio": "Haz un gesto consciente de aprecio esta semana.", "libro": "The 5 Love Languages - Gary Chapman"},
+    "6": {"diagnostico": "Relaciones sólidas y saludables.", "insight": "Ahora el reto es sostener y profundizar.", "ejercicio": "Dedica tiempo de calidad sin distracciones.", "libro": "Hold Me Tight - Sue Johnson"},
+    "7": {"diagnostico": "Relaciones profundas, sanas y significativas.", "insight": "Tu impacto ahora es multiplicador.", "ejercicio": "Apoya activamente el crecimiento de alguien cercano.", "libro": "The Relationship Cure - John Gottman"}
+  },
+  "productividad": {
+    "1": {"diagnostico": "Estás estancado en tu crecimiento. No hay aprendizaje ni evolución consciente.", "insight": "El estancamiento es una decisión silenciosa.", "ejercicio": "Lee 10 páginas hoy de cualquier libro de crecimiento.", "libro": "Mindset - Carol Dweck"},
+    "2": {"diagnostico": "Hay interés por mejorar, pero sin consistencia.", "insight": "La intención no reemplaza la disciplina.", "ejercicio": "Dedica 15 min diarios a aprender algo nuevo.", "libro": "Atomic Habits - James Clear"},
+    "3": {"diagnostico": "Aprendes, pero sin aplicar.", "insight": "Aprender sin ejecutar es ilusión.", "ejercicio": "Aplica una idea concreta hoy mismo.", "libro": "The 7 Habits - Stephen Covey"},
+    "4": {"diagnostico": "Crecimiento moderado.", "insight": "El progreso requiere intención.", "ejercicio": "Define una habilidad a desarrollar este mes.", "libro": "Grit - Angela Duckworth"},
+    "5": {"diagnostico": "Buen nivel de crecimiento.", "insight": "La mejora es constante.", "ejercicio": "Practica una habilidad clave 3 veces esta semana.", "libro": "Peak - Anders Ericsson"},
+    "6": {"diagnostico": "Alto nivel de desarrollo personal.", "insight": "Ahora se trata de refinamiento.", "ejercicio": "Busca feedback externo esta semana.", "libro": "Mastery - Robert Greene"},
+    "7": {"diagnostico": "Estás en evolución constante.", "insight": "Tu crecimiento inspira a otros.", "ejercicio": "Comparte lo que sabes con alguien.", "libro": "The Art of Learning - Josh Waitzkin"}
+  },
+  "autoestima": {
+    "1": {"diagnostico": "Tu vida carece de disfrute. Todo es obligación.", "insight": "Sin disfrute, todo pesa.", "ejercicio": "Haz hoy algo que disfrutes sin culpa.", "libro": "The Happiness Project - Gretchen Rubin"},
+    "2": {"diagnostico": "Poco espacio para diversión.", "insight": "El descanso no es opcional.", "ejercicio": "Agenda 1 actividad divertida esta semana.", "libro": "Rest - Alex Pang"},
+    "3": {"diagnostico": "Diversión ocasional.", "insight": "El disfrute necesita intención.", "ejercicio": "Bloquea 2 horas para ocio esta semana.", "libro": "Big Magic - Elizabeth Gilbert"},
+    "4": {"diagnostico": "Buen equilibrio básico.", "insight": "El juego también es productividad.", "ejercicio": "Haz algo creativo sin objetivo.", "libro": "Play - Stuart Brown"},
+    "5": {"diagnostico": "Disfrutas, pero no siempre priorizas.", "insight": "Lo que no agendas, no pasa.", "ejercicio": "Planifica una actividad especial.", "libro": "The Art of Happiness - Dalai Lama"},
+    "6": {"diagnostico": "Buen nivel de disfrute.", "insight": "Ahora se trata de calidad.", "ejercicio": "Desconéctate 1 día completo de trabajo.", "libro": "Flow - Mihaly Csikszentmihalyi"},
+    "7": {"diagnostico": "Disfrutas la vida activamente.", "insight": "El disfrute compartido se multiplica.", "ejercicio": "Comparte una experiencia con otros.", "libro": "Joyful - Ingrid Fetell Lee"}
+  },
+  "paz_mental": {
+    "1": {"diagnostico": "No hay conexión con aportar a otros.", "insight": "Dar también construye identidad.", "ejercicio": "Ayuda a alguien hoy sin esperar nada.", "libro": "Give and Take - Adam Grant"},
+    "2": {"diagnostico": "Aportes ocasionales.", "insight": "La contribución es práctica.", "ejercicio": "Haz un acto consciente de ayuda.", "libro": "The Go-Giver - Bob Burg"},
+    "3": {"diagnostico": "Empiezas a contribuir.", "insight": "Dar crea significado.", "ejercicio": "Ofrece ayuda en algo concreto.", "libro": "Start Something That Matters - Blake Mycoskie"},
+    "4": {"diagnostico": "Contribuyes de forma intermitente.", "insight": "La consistencia crea impacto.", "ejercicio": "Define una forma regular de aportar.", "libro": "Doing Good Better - William MacAskill"},
+    "5": {"diagnostico": "Aportas valor a otros.", "insight": "El impacto crece con intención.", "ejercicio": "Escala tu forma de contribuir.", "libro": "Leaders Eat Last - Simon Sinek"},
+    "6": {"diagnostico": "Alto nivel de contribución.", "insight": "Tu impacto puede ser exponencial.", "ejercicio": "Mentorea a alguien.", "libro": "Tribal Leadership - Dave Logan"},
+    "7": {"diagnostico": "Vives desde el impacto.", "insight": "Ahora eres un catalizador.", "ejercicio": "Crea una iniciativa de impacto.", "libro": "Give - Bill Clinton"}
+  },
+  "crecimiento": {
+    "1": {"diagnostico": "Desconexión total contigo mismo.", "insight": "Sin conexión interior, todo se siente vacío.", "ejercicio": "5 minutos de silencio hoy.", "libro": "The Power of Now - Eckhart Tolle"},
+    "2": {"diagnostico": "Búsqueda inicial.", "insight": "La inquietud es el inicio.", "ejercicio": "Escribe lo que sientes sin filtro.", "libro": "Awareness - Anthony de Mello"},
+    "3": {"diagnostico": "Conexión ocasional.", "insight": "La conexión requiere práctica.", "ejercicio": "Medita 5 min por 3 días.", "libro": "Wherever You Go, There You Are - Jon Kabat-Zinn"},
+    "4": {"diagnostico": "Nivel medio de conexión.", "insight": "La paz se entrena.", "ejercicio": "Respira consciente 5 min diarios.", "libro": "The Untethered Soul - Michael Singer"},
+    "5": {"diagnostico": "Buena conexión interior.", "insight": "La presencia transforma.", "ejercicio": "Practica gratitud diaria.", "libro": "The Book of Joy"},
+    "6": {"diagnostico": "Alto nivel espiritual.", "insight": "Ahora se trata de profundidad.", "ejercicio": "Dedica 10 min a reflexión diaria.", "libro": "A New Earth - Eckhart Tolle"},
+    "7": {"diagnostico": "Conexión profunda y estable.", "insight": "Tu paz impacta a otros.", "ejercicio": "Guía a alguien en este camino.", "libro": "The Way of the Superior Man - David Deida"}
+  }
+            };
 
             const lowestAreas = areas
                 .map((area, idx) => ({ area, label: areaLabels[area], score: datos[area] }))
@@ -928,45 +1029,46 @@
             const summary = `Hola ${datos.nombre}, tu radar revela dos áreas que requieren atención especial: ${lowestAreas[0].label.replace(/^[📚💪💰🎯❤️⚡🪞🧘]\s/, '')} (${lowestAreas[0].score}/10) y ${lowestAreas[1].label.replace(/^[📚💪💰🎯❤️⚡🪞🧘]\s/, '')} (${lowestAreas[1].score}/10). El camino hacia una vida más equilibrada empieza por atender estas áreas con consciencia y acción.`;
             document.getElementById('resultsSummary').textContent = summary;
 
-            // Parsear análisis por áreas
-            const areasAnalisis = parseAreaAnalysis(texto, datos);
-            
+            // Generar tarjetas con datos del JSON local
             let html = '';
+            const colors = ['#38bdf8', '#a78bfa', '#ff8c42', '#f87171', '#10b981', '#06b6d4', '#ec4899', '#f59e0b'];
             
-            areasAnalisis.forEach((area, idx) => {
-                const colors = ['#38bdf8', '#a78bfa', '#ff8c42', '#f87171', '#10b981', '#06b6d4', '#ec4899', '#f59e0b'];
+            areas.forEach((area, idx) => {
                 const color = colors[idx % colors.length];
+                const puntaje = datos[area] || 1;
+                const puntajeStr = Math.min(Math.max(Math.round(puntaje), 1), 7).toString();
+                const analisis = analisisDB[area]?.[puntajeStr] || analisisDB[area]?.["7"];
                 
                 html += `
                     <div class="area-card" style="border-left: 5px solid ${color}; animation: cardSlideIn 0.6s ease-out backwards; animation-delay: ${idx * 0.1}s;">
                         <div class="area-header">
                             <div style="display: flex; align-items: center; gap: 10px;">
-                                <div style="font-size: 2rem;">${area.emoji}</div>
+                                <div style="font-size: 2rem;">${areaLabels[area].split(' ')[0]}</div>
                                 <div>
-                                    <div class="area-title">${area.nombre}</div>
-                                    <div class="area-score" style="font-size: 0.9rem; color: ${color};">${area.puntaje}/10</div>
+                                    <div class="area-title">${areaLabels[area]}</div>
+                                    <div class="area-score" style="font-size: 0.9rem; color: ${color};">${puntaje}/10</div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="area-section" style="margin-top: 20px;">
                             <div class="area-section-label" style="color: ${color};">📋 Diagnóstico</div>
-                            <div class="area-section-content">${area.diagnostico}</div>
+                            <div class="area-section-content">${analisis?.diagnostico || 'Evaluación completada'}</div>
                         </div>
                         
                         <div class="area-section">
                             <div class="area-section-label" style="color: ${color};">💡 Insight Clave</div>
-                            <div class="area-section-content">${area.insight}</div>
+                            <div class="area-section-content">${analisis?.insight || 'Reflexiona sobre esta área'}</div>
                         </div>
                         
                         <div class="area-section">
                             <div class="area-section-label" style="color: ${color};">🎯 Ejercicio Práctico</div>
-                            <div class="area-section-content">${area.ejercicio}</div>
+                            <div class="area-section-content">${analisis?.ejercicio || 'Dedica tiempo a esta práctica'}</div>
                         </div>
                         
                         <div class="area-section">
                             <div class="area-section-label" style="color: ${color};">📚 Libro Recomendado</div>
-                            <div class="area-section-content" style="font-style: italic; color: #94a3b8;">${area.libro}</div>
+                            <div class="area-section-content" style="font-style: italic; color: #94a3b8;">${analisis?.libro || 'Busca recursos sobre este tema'}</div>
                         </div>
                     </div>
                 `;
@@ -1140,7 +1242,7 @@
         }
 
         function contactCarlos() {
-            window.location.href = 'https://cafedelexito.net/ever-optin-page';
+            window.location.href = 'https://cafedelexito.net/ever-optin-page?utm_source=rueda_de_vida&utm_medium=freebie&utm_campaign=evergreen_video';
         }
 
         initChart();
